@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: "Silkscreen", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: url(./public/images/background.jpg)
+    no-repeat center center/cover;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 0 20px;
+}
+
+.todo-app{
+    width: 100%;
+    max-width: 400px;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 30px;
+    color: rgb(13, 36, 113);
+    border-radius: 20px;
+    box-shadow:0 0 100px rgba(0, 0, 0, 0.5);
+    border: 3px solid rgba(255, 255, 255, 0.18);
+    backdrop-filter:blur(10px) ;
+}
+
+.todo-app h1{
+    font-size: 2rem;
+}
+
+.input-area{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.input-area input{
+    flex: 1;
+    padding: 10px 17px;
+    font-size: 1.1rem;
+    border: 2px solid rgba(13, 36, 113, 0.554);
+    outline: none;
+    border-radius: 22px;
+    background: rgba(41, 94, 228, 0.3);
+    color: rgb(13, 36, 113);
+}
+
+.input-area input::placeholder{
+  color: rgb(86, 108, 178);
+}
+
+.input-area button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10px;
+    padding:8px;
+    border-radius: 50%;
+    color: rgb(13, 36, 113);
+    font-size: 1.1rem;
+    background: rgba(41, 94, 228, 0.3);
+    border: 2px solid rgba(13, 36, 113, 0.554);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.input-area button:hover{
+    transform: scale(1.1);
+    background: rgba(19, 199, 172, 0.7);
+}
+
+.todos-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#task-list{
+    width: 100%;
+}
