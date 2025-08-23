@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width" />
+    <title>ToDo List App</title>
+    <!-- free and open source Content Delivery Network built, powered by Cloudflare
+    <link rel="stylesheet" href=" https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"> -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+        <div class="todo" data-js-todo>
+            <h1 class="todo__title">To Do List</h1>
+            <form class="todo__form" data-js-todo-new-task-form >
+                <div class="todo__field field">
+                    <label class="flield__label" for="new-task">
+                        Aufgabe hinzufügen
+                    </label>
+                    <input class="field__input" id="new-task" placeholder=" " autocomplete="off" data-js-todo-new-task-input/>
+                    <button class="button" type="submit" id="add-task-button">
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g transform="scale(0.2643)">
+                                <path fill="#0D2471"
+                                    d="M41.267,18.557H26.832V4.134C26.832,1.851,24.99,0,22.707,0c-2.283,0-4.124,1.851-4.124,4.135v14.432H4.141 c-2.283,0-4.139,1.851-4.138,4.135c-0.001,1.141,0.46,2.187,1.207,2.934c0.748,0.749,1.78,1.222,2.92,1.222h14.453V41.27 c0,1.142,0.453,2.176,1.201,2.922c0.748,0.748,1.777,1.211,2.919,1.211c2.282,0,4.129-1.851,4.129-4.133V26.857h14.435 c2.283,0,4.134-1.867,4.133-4.15C45.399,20.425,43.548,18.557,41.267,18.557z" />
+                            </g>
+                        </svg>
+                    </button>
+                </div>
+            </form>
+            <form class="todo__form" data-js-todo-search-task-form>
+                <div class="todo__field field">
+                    <label class="field__label" for="search-task">
+                        Aufgabe suchen
+                    </label>
+                    <input class="field__input" id="search-task" placeholder=" " autocomplete="off" type="search" data-js-todo-search-task-input />
+                </div>
+            </form>
+
+            <div class="todo__info">
+                <div class="todo__total-tasks">
+                    Alle Aufgaben: <span data-js-todo-total-tasks>0</span>
+                </div>
+                <button class="todo__delete-all_button" type="button" data-js-todo-delete-all-button>Alle löschen</button>
+            </div>
+
+            <ul class="todo__list" data-js-todo-list>
+                <li class="todo__item todo-item" data-js-todo-item>
+                    <input type="checkbox" class="todo-item__checkbox" id="todo-1" data-js-todo-item-checkbox>
+                    <label for="" class="todo-item__label" form="todo-1" data-js-todo-item-label>ToDo 1</label>
+
+                    <button class="todo-item__delete-button" type="button" aria-label="Delete" title="Delete" data-js-todo-item-delete-button>
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M11 1L1 11M1 1L11 11" stroke="#0D2471" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </button>
+
+                </li>
+
+                 <li class="todo__item todo-item" data-js-todo-item>
+                    <input type="checkbox" class="todo-item__checkbox" id="todo-1" data-js-todo-item-checkbox>
+                    <label for="" class="todo-item__label" form="todo-1" data-js-todo-item-label>ToDo 1</label>
+                    <button class="todo-item__delete-button" type="button" aria-label="Delete" title="Delete" data-js-todo-item-delete-button>
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M11 1L1 11M1 1L11 11" stroke="#0D2471" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                </li>
+                
+            </ul>
+            <div class="todo__empty" data-js-todo-empty>
+            <img class="empty" src="./../public/images/empty.svg" alt="empty" width="200" height="200" loading="lazy" />
+             </div>
+        </div>
+</body>
+<script src="script.js" type="module"></script>
+
+</html>

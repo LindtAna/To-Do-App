@@ -12,20 +12,11 @@ body{
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: url(./public/images/background.jpg)
+    background: url(../public/images/background.jpg)
     no-repeat center center/cover;
 }
 
-.container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    padding: 0 20px;
-}
-
-.todo-app{
+.todo{
     width: 100%;
     max-width: 400px;
     padding: 2rem;
@@ -44,14 +35,14 @@ body{
     font-size: 2rem;
 }
 
-.input-area{
+.todo__form{
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
 }
 
-.input-area input{
+.todo__form input{
     flex: 1;
     padding: 10px 17px;
     font-size: 1.1rem;
@@ -62,11 +53,11 @@ body{
     color: rgb(13, 36, 113);
 }
 
-.input-area input::placeholder{
+.todo__form input::placeholder{
   color: rgb(86, 108, 178);
 }
 
-.input-area button{
+/* .todo__form button{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -79,11 +70,11 @@ body{
     border: 2px solid rgba(13, 36, 113, 0.554);
     cursor: pointer;
     transition: all 0.2s ease;
-}
+} */
 
-.input-area button:hover{
+.todo__form button:hover{
     transform: scale(1.1);
-    background: rgba(19, 199, 172, 0.7);
+    background: rgba(255, 255, 255, 0.908);
 }
 
 .todos-container{
