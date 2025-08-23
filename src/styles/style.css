@@ -1,0 +1,286 @@
+@import url('https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap');
+@import 'normalize.css';
+
+body {
+    font-family: "Silkscreen", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    min-height: 100vh;
+    padding: 100px 30px;
+    background: url(../../public/images/background.jpg) no-repeat center center/cover;
+}
+
+input,
+label,
+button {
+    transition-duration: 0.2s;
+}
+
+
+:focus-visible {
+    outline: 2px dashed rgba(41, 94, 228, 0.3);
+    outline-offset: 4px;
+    transition-duration: 0s !important;
+}
+
+
+
+.todo {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    width: 100%;
+    max-width: 400px;
+    min-height: 430px;
+    padding: 24px;
+    color: rgb(13, 36, 113);
+    border-radius: 20px;
+    box-shadow: 0 0 100px rgba(0, 0, 0, 0.5);
+    border: 3px solid rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(10px);
+}
+
+.todo__title {
+    text-align: center;
+    font-size: 2rem;
+    line-height: 1.2;
+}
+
+.todo__form {
+    display: flex;
+    column-gap: 16px;
+}
+
+.todo__field {
+    width: 100%;
+}
+
+.todo__info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    column-gap: 16px;
+    font-weight: 600;
+}
+
+
+button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: rgb(13, 36, 113);
+    background-color: rgba(41, 94, 228, 0.3);
+    border: 2px solid rgba(13, 36, 113, 0.554);
+    cursor: pointer;
+
+    &:hover {
+        transform: scale(1.1);
+        background-color: rgba(255, 255, 255, 0.908);
+    }
+
+    &:active {
+        background-color: rgba(0, 16, 99, 0.908);
+        color: rgba(255, 255, 255, 0.908);
+    }
+}
+
+
+.todo__delete-all_button {
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    border-radius: none;
+
+    &:hover {
+        transform: scale(1.1);
+        background-color: transparent;
+        color: rgb(168, 22, 22);
+    }
+
+    &:not(.is-visible) {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+.todo__list,
+.todo__empty {
+    &:empty {
+        display: none;
+    }
+}
+
+.todo__list {
+    --todoListRowGap: 8px;
+
+    display: grid;
+    row-gap: 8px;
+}
+
+.todo__empty {
+    text-align: center;
+    color: rgb(86, 108, 178);
+    background-image: url(../../public/images/empty.svg);
+}
+
+
+.field {
+    position: relative;
+
+    &:has(.field__input:not(:placeholder-shown)) .field__label {
+        scale: 0.7;
+        translate: -1.75em -2.6em;
+        color: rgb(86, 108, 178);
+    }
+}
+
+
+.field__label {
+    position: absolute;
+    top: 50%;
+    left: 17px;
+    color: rgb(86, 108, 178);
+    translate: 0 -50%;
+}
+
+.field__input {
+    --fieldSearchInputIconSize: 16px;
+    --fieldInputPaddingX: 16px;
+
+    width: 100%;
+    height: 40px;
+    padding-inline: var(--fieldInputPaddingX);
+    border: 2px solid rgba(13, 36, 113, 0.554);
+    border-radius: 17px;
+    background: rgba(41, 94, 228, 0.3);
+    color: rgb(13, 36, 113);
+
+    &:hover,
+    &:focus {
+        color: rgb(13, 36, 113);
+    }
+
+    &:focus {
+        background-color: rgba(198, 211, 255, 0.575);
+        outline: none;
+    }
+
+    &[type="search"] {
+        &:placeholder-shown {
+            padding-right: calc(var(--fieldInputPaddingX) * 2 + var(--fieldSeachInputIconSize));
+            background-image: url('../icons/search.svg');
+            background-position: calc(100% - var(--fieldInputPaddingX)) 50%;
+            background-size: var(--fieldSearchInputIconSize);
+            background-repeat: no-repeat;
+        }
+    }
+}
+
+
+.todo-item {
+    display: flex;
+    align-items: center;
+    column-gap: 12px;
+    padding-left: 10px;
+    border: 2px solid rgba(13, 36, 113, 0.554);
+    border-radius: 17px;
+    background: rgba(41, 94, 228, 0.3);
+    color: rgb(13, 36, 113);
+    transition-duration: 0.2s;
+
+    &:hover {
+        background-color: rgba(198, 211, 255, 0.575);
+    }
+
+    &.is-disappearing {
+        opacity: 0;
+        translate: 0 -75%;
+        transition-duration: 0.4;
+        pointer-events: none;
+
+        /* (~) wählt alle .todo-item-Elemente aus, die nach dem angegebenen Element in der gleichen Hierarchieebene folgen
+        translate verschiebt diese Elemente vertikal um -(100% + var(--todoListRowGap)), um einen gestapelten Effekt zu erzeugen, wobei der Abstand zwischen den Elementen berücksichtigt wird.
+         */
+        &~.todo-item {
+            translate: 0 calc((100% + var(--todoListRowGap)) * -1);
+            transition-delay: 0.2s;
+            transition-duration: 0.2s;
+            pointer-events: none;
+        }
+    }
+}
+
+.todo-item__delete-button {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    margin-left: auto;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+
+    &:hover {
+        transform: scale(1.5);
+        background-color: transparent;
+    }
+
+    &:active {
+        color: rgb(168, 22, 22);
+    }
+
+    * {
+        pointer-events: none;
+    }
+}
+
+.todo-item__checkbox {
+    flex-shrink: 0;
+    appearance: none;
+    position: relative;
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    border: 1px solid rgba(13, 36, 113, 0.554);
+    border-radius: 6px;
+    background: rgba(198, 211, 255, 0.575);
+
+    &:not(:checked) {
+        &::after {
+            opacity: 0;
+        }
+    }
+
+    &:checked {
+        background-color: rgba(13, 36, 113, 0.554);
+
+        &+.todo-item__label {
+            color: rgba(13, 36, 113, 0.554);
+            ;
+            text-decoration: line-through;
+        }
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        translate: -50% -50%;
+        width: 16px;
+        height: 16px;
+        background: url('../icons/check.svg') center/contain no-repeat;
+    }
+}
+
+.todo-item__label {
+    width: 100%;
+    pointer-events: none;
+}

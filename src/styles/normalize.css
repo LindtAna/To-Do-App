@@ -1,0 +1,205 @@
+/**
+  Normalisierung des Box-Modells
+ */
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}
+
+/**
+  Entfernen der linken Innenabstände für Listen-Tags,
+  die ein class-Attribut besitzen
+ */
+:where(ul, ol):where([class]) {
+  padding-left: 0;
+}
+
+/**
+  Entfernen der Außenabstände für body und zwei weitere Tags,
+  die ein class-Attribut besitzen
+ */
+body,
+:where(blockquote, figure):where([class]) {
+  margin: 0;
+}
+
+/**
+  Entfernen der vertikalen Außenabstände für bestimmte Tags,
+  die ein class-Attribut besitzen
+ */
+:where(
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  ul,
+  ol,
+  dl
+):where([class]) {
+  margin-block: 0;
+}
+
+:where(dd[class]) {
+  margin-left: 0;
+}
+
+:where(fieldset[class]) {
+  margin-left: 0;
+  padding: 0;
+  border: none;
+}
+
+/**
+  Entfernen des Standard-Markers für ungeordnete Listen,
+  die ein class-Attribut besitzen
+ */
+:where(ul[class]) {
+  list-style: none;
+}
+
+:where(address[class]) {
+  font-style: normal;
+}
+
+/**
+  Zurücksetzen der vertikalen Außenabstände für Absätze,
+  Definieren einer lokalen Variable für den unteren Außenabstand,
+  um Interaktionen mit komplexeren Selektoren zu vermeiden
+ */
+p {
+  --paragraphMarginBottom: 24px;
+
+  margin-block: 0;
+}
+
+/**
+  Unterer Außenabstand für Absätze ohne class-Attribut,
+  die nicht das letzte Geschwisterelement sind
+ */
+:where(p:not([class]):not(:last-child)) {
+  margin-bottom: var(--paragraphMarginBottom);
+}
+
+/**
+  Vereinfachung der Arbeit mit Bildern und Videos
+ */
+img,
+video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/**
+  Vererbung der Schriftart-Eigenschaften für Eingabefelder
+ */
+input,
+textarea,
+select,
+button {
+  font: inherit;
+}
+
+html {
+  /**
+    Nützlich in den meisten Szenarien
+    (z. B. um den Footer an den unteren Rand der Seite zu binden)
+   */
+  height: 100%;
+  /**
+    Vermeidung von horizontalen Sprüngen der Benutzeroberfläche
+    beim Erscheinen/Verschwinden der Scrollleiste
+   */
+  scrollbar-gutter: stable;
+}
+
+/**
+  Sanftes Scrollen
+ */
+html,
+:has(:target) {
+  scroll-behavior: smooth;
+}
+
+body {
+  /**
+    Nützlich in den meisten Szenarien
+    (z. B. um den Footer an den unteren Rand der Seite zu binden)
+   */
+  min-height: 100%;
+  /**
+    Einheitlicher Zeilenabstand
+   */
+  line-height: 1.5;
+}
+
+/**
+  Normalisierung der Höhe von Link-Elementen bei der Inspektion in DevTools
+ */
+a:where([class]) {
+  display: inline-flex;
+}
+
+/**
+  Hand-Cursor bei Hover über Elemente
+ */
+button,
+label {
+  cursor: pointer;
+}
+
+/**
+  Vereinheitlichung der Farbe von SVG-Elementen
+  (außer bei denen mit fill="none" oder fill beginnend mit "url")
+ */
+:where([fill]:not(
+  [fill="none"],
+  [fill^="url"]
+)) {
+  fill: currentColor;
+}
+
+/**
+  Vereinheitlichung der Farbe von SVG-Elementen
+  (außer bei denen mit stroke="none" oder stroke beginnend mit "url")
+ */
+:where([stroke]:not(
+  [stroke="none"],
+  [stroke^="url"]
+)) {
+  stroke: currentColor;
+}
+
+/**
+  Behebung eines Verzögerungsfehlers beim Farbwechsel von SVG-Elementen bei Interaktion
+ */
+svg * {
+  transition-property: fill, stroke;
+}
+
+/**
+  Umstellung von Tabellenrahmen auf den klassischen 'collapse'-Modus
+ */
+:where(table) {
+  border-collapse: collapse;
+  border-color: currentColor;
+}
+
+/**
+  Entfernen aller Animationen und Übergänge für Nutzer,
+  die reduzierte Bewegungen bevorzugen
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
