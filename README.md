@@ -7,6 +7,8 @@ Einfache, minimalistische "To Do List"-Anwendung, entwickelt ohne Frameworks ode
 ## 🎨 Design
 
 ![Screenshot 1](https://github.com/LindtAna/To-Do-App/blob/main/todo1.png)
+
+
 ![Screenshot 2](https://github.com/LindtAna/To-Do-App/blob/main/todo2.png)
 
 ---
