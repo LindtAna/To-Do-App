@@ -10,7 +10,7 @@ body {
     align-items: start;
     min-height: 100vh;
     padding: 100px 30px;
-    background: url(../../public/images/background.jpg) no-repeat center center fixed;
+    background: url(../images/background.jpg) no-repeat center center fixed;
     background-size: cover;
 }
 

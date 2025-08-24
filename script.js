@@ -159,12 +159,12 @@ class ToDo {
         this.emptyElement.innerHTML = isEmptyFilteredItems
             ? `
                 Aufgaben nicht gefunden
-                <img src="../../public/images/empty.svg" alt="No tasks" />
+                <img src="./public/images/empty.svg" alt="No tasks" />
               `
             : isEmptyItems
                 ? `
                 Es gibt noch keine Aufgaben
-                <img src="../../public/images/empty.svg" alt="No tasks" />
+                <img src="./public/images/empty.svg" alt="No tasks" />
               `
                 : ''
     }
