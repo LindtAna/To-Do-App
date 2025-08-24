@@ -371,8 +371,7 @@ class ToDo {
     }
 }
 
-/**
- * Instanz der ToDo-Klasse erstellen und Anwendung initialisieren.
- */
+
+//Instanz der ToDo-Klasse erstellen und Anwendung initialisieren.
 
 new ToDo()

@@ -8,7 +8,8 @@ body {
     align-items: start;
     min-height: 100vh;
     padding: 100px 30px;
-    background: url(../../public/images/background.jpg) no-repeat center center/cover;
+    background: url(../../public/images/background.jpg) no-repeat center center fixed;
+    background-size: cover;
 }
 
 input,
@@ -80,7 +81,8 @@ button {
 
     &:hover {
         transform: scale(1.1);
-        background-color: rgb(197 210 255);;
+        background-color: rgb(197 210 255);
+        ;
     }
 
     &:active {
@@ -133,7 +135,7 @@ button {
     gap: 10px;
 }
 
-.todo__empty img{
+.todo__empty img {
     width: 250px;
     height: auto;
 }
@@ -141,7 +143,8 @@ button {
 
 .field {
     position: relative;
-/* Wenn .field__input nicht leer ist , wird .field__label auf 70 % skaliert, nach links und oben verschoben und die Farbe wird geändert. */
+
+    /* Wenn .field__input nicht leer ist , wird .field__label auf 70 % skaliert, nach links und oben verschoben und die Farbe wird geändert. */
     &:has(.field__input:not(:placeholder-shown)) .field__label {
         scale: 0.7;
         translate: -1.75em -2.6em;
@@ -197,7 +200,7 @@ button {
     align-items: center;
     column-gap: 12px;
     padding-left: 10px;
-   border: 3px solid rgba(255, 255, 255, 0.18);
+    border: 3px solid rgba(255, 255, 255, 0.18);
     border-radius: 17px;
     background: rgba(41, 94, 228, 0.3);
     color: rgb(13, 36, 113);
@@ -293,4 +296,73 @@ button {
 .todo-item__label {
     width: 100%;
     pointer-events: none;
+}
+
+
+
+
+@media (max-width: 480px) {
+    body {
+        padding: 30px 15px;
+    }
+
+    .todo {
+        padding: 12px;
+        row-gap: 12px;
+    }
+
+    .todo__title {
+        font-size: 1.2rem;
+    }
+
+    .field__label {
+        font-size: 0.8rem;
+    }
+
+    .field__input {
+        font-size: 0.75rem;
+        height: 32px;
+        padding-inline: 10px;
+    }
+
+    .field__input::placeholder {
+        font-size: 0.75rem;
+    }
+
+    button {
+        width: 32px;
+        height: 32px;
+        padding: 6px;
+    }
+
+    .todo__delete-all_button {
+        font-size: 0.8rem;
+        padding: 6px 12px;
+    }
+
+    .todo__info {
+        font-size: 0.75rem;
+    }
+
+    .todo-item__label {
+        font-size: 0.75rem;
+
+        .todo-item__checkbox {
+            width: 14px;
+            height: 14px;
+        }
+
+        .todo-item__delete-button {
+            width: 32px;
+            height: 32px;
+        }
+
+        .todo__empty {
+            font-size: 0.75rem;
+        }
+
+        .todo__empty img {
+            width: 150px;
+        }
+    }
 }
