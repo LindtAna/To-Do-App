@@ -11,9 +11,9 @@ class ToDo {
         newTaskForm: '[data-js-todo-new-task-form]', // Formular zum Hinzufügen neuer Aufgaben
         newTaskInput: '[data-js-todo-new-task-input]', // Eingabefeld für neue Aufgaben
         searchTaskForm: '[data-js-todo-search-task-form]', // Formular für die Aufgabensuche
-        seacrhTaskInput: '[data-js-todo-search-task-input]', // Eingabefeld für die Suche
+        searchTaskInput: '[data-js-todo-search-task-input]', // Eingabefeld für die Suche
         totalTasks: '[data-js-todo-total-tasks]', // Anzeige der Gesamtzahl der Aufgaben
-        deletaAllButton: '[data-js-todo-delete-all-button]', // Button zum Löschen aller Aufgaben
+        deleteAllButton: '[data-js-todo-delete-all-button]', // Button zum Löschen aller Aufgaben
         list: '[data-js-todo-list]', // Container für die Aufgabenliste
         item: '[data-js-todo-item]', // Einzelnes Aufgabenelement
         itemCheckbox: '[data-js-todo-item-checkbox]', // Checkbox für Aufgabenstatus
@@ -45,12 +45,14 @@ class ToDo {
         this.newTaskFormElement = this.rootElement.querySelector(this.selectors.newTaskForm)
         // Zugriff auf das Eingabefeld für neue Aufgaben
         this.newTaskInputElement = this.rootElement.querySelector(this.selectors.newTaskInput)
+ // Zugriff auf das Eingabefeld für die Suche
+        this.searchTaskFormElement = this.rootElement.querySelector(this.selectors.searchTaskForm)
         // Zugriff auf das Eingabefeld für die Suche
-        this.searchTaskInputElement = this.rootElement.querySelector(this.selectors.seacrhTaskInput)
+        this.searchTaskInputElement = this.rootElement.querySelector(this.selectors.searchTaskInput)
         // Zugriff auf das Element, das die Gesamtzahl der Aufgaben anzeigt
         this.totalTasksElement = this.rootElement.querySelector(this.selectors.totalTasks)
         // Zugriff auf den Button zum Löschen aller Aufgaben
-        this.deletaAllButtonElement = this.rootElement.querySelector(this.selectors.deletaAllButton)
+        this.deleteAllButtonElement = this.rootElement.querySelector(this.selectors.deleteAllButton)
         // Zugriff auf den Container der Aufgabenliste
         this.listElement = document.querySelector(this.selectors.list)
         // Zugriff auf den Container für leere Zustandsmeldungen
@@ -67,11 +69,12 @@ class ToDo {
 
         // Initiales Rendern der Benutzeroberfläche
         this.render()
+        this.bindEvents()
     }
 
     /**
      * Lädt die Aufgaben aus dem LocalStorage.
-     * @returns {Array} Array von Aufgaben oder leeres Array bei Fehler oder fehlenden Daten.
+     * returns {Array} Array von Aufgaben oder leeres Array bei Fehler oder fehlenden Daten.
      */
     getItemsFromLocalStorage() {
         // Rohdaten aus dem LocalStorage abrufen
@@ -113,7 +116,7 @@ class ToDo {
         this.totalTasksElement.textContent = this.state.items.length
 
         // Sichtbarkeit des "Alle löschen"-Buttons basierend auf der Anzahl der Aufgaben umschalten
-        this.deletaAllButtonElement.classList.toggle(
+        this.deleteAllButtonElement.classList.toggle(
             this.stateClasses.isVisible,
             this.state.items.length > 0
         )
@@ -168,8 +171,9 @@ class ToDo {
 
     /**
      * Fügt eine neue Aufgabe zur Liste hinzu.
-     * @param {string} title - Titel der neuen Aufgabe.
+     * param {string} title - Titel der neuen Aufgabe.
      */
+
     addItem(title) {
         // Neue Aufgabe mit eindeutiger ID erstellen
         this.state.items.push({
@@ -183,17 +187,188 @@ class ToDo {
         this.render()
     }
 
+    
+
+    /**
+     * Löscht eine Aufgabe anhand ihrer ID.
+     * param {string} id - ID der zu löschenden Aufgabe.
+     */
     deleteItem(id) {
         // Aufgabe aus der Liste entfernen
         this.state.items = this.state.items.filter((item) => item.id !== id)
+    
         this.saveItemsToLocalStorage()
         this.render()
     }
 
-    /**
-     * Umschalten des Checked-Status einer Aufgabe (Platzhalter, noch nicht implementiert).
+     /**
+     * Schaltet den Checked-Status einer Aufgabe um.
+     * param {string} id - ID der Aufgabe, deren Status geändert werden soll.
      */
-    toggleCheckedState() { }
+    toggleCheckedState(id) {
+        // Aktualisiert den isChecked-Status der Aufgabe mit der gegebenen ID
+        this.state.items = this.state.items.map((item) => {
+            if (item.id === id) {
+                return {
+                    ...item,
+                    isChecked: !item.isChecked
+                }
+            }
+            return item
+        })
+    
+        this.saveItemsToLocalStorage()
+        this.render()
+    }
+
+
+    /**
+     * Filtert die Aufgaben basierend auf der aktuellen Suchanfrage.
+     */
+    filter() {
+        // Suchanfrage in Kleinbuchstaben formatieren
+        const queryFormatted = this.state.searchQuery.toLowerCase()
+
+        // Aufgaben filtern, deren Titel die Suchanfrage enthalten
+        this.state.filteredItems = this.state.items.filter(({ title }) => {
+            const titleFormatted = title.toLowerCase()
+            return titleFormatted.includes(queryFormatted)
+        })
+   
+        this.render()
+    }
+
+    /**
+     * Setzt den Filter zurück und zeigt alle Aufgaben an.
+     */
+    resetFilter() {
+        // Gefilterte Aufgaben und Suchanfrage zurücksetzen
+        this.state.filteredItems = null
+        this.state.searchQuery = ''
+  
+        this.render()
+    }
+
+    /**
+     * Verarbeitet das Absenden des Formulars für neue Aufgaben.
+     * param {Event} event - Submit-Ereignis des Formulars.
+     */
+    onNewTaskFormSubmit = (event) => {
+        // Verhindert das Standardverhalten des Formulars (Seitenneuladen)
+        event.preventDefault()
+
+        // Titel der neuen Aufgabe aus dem Eingabefeld holen
+        const newTodoItemTitle = this.newTaskInputElement.value
+
+        // Prüfen, ob der Titel nicht leer ist
+        if (newTodoItemTitle.trim().length > 0) {
+            // Neue Aufgabe hinzufügen
+            this.addItem(newTodoItemTitle)
+            // Filter zurücksetzen
+            this.resetFilter()
+            // Eingabefeld leeren
+            this.newTaskInputElement.value = ''
+            // Fokus auf das Eingabefeld setzen
+            this.newTaskInputElement.focus()
+        }
+    }
+
+    /**
+     * Verarbeitet das Absenden des Suchformulars (keine Aktion, nur PreventDefault).
+     * param {Event} event - Submit-Ereignis des Suchformulars.
+     */
+    onSearchTaskFormSubmit = (event) => {
+        // Verhindert das Standardverhalten des Formulars (Seitenneuladen)
+        event.preventDefault()
+    }
+
+    /**
+     * Verarbeitet Änderungen im Such-Eingabefeld.
+     * param {Event} event - Input-Ereignis des Suchfelds.
+     */
+    onSearchTaskInputChange = ({ target }) => {
+        // Wert des Eingabefelds bereinigen
+        const value = target.value.trim()
+
+        // Prüfen, ob ein Suchbegriff vorhanden ist
+        if (value.length > 0) {
+            // Suchanfrage speichern und filtern
+            this.state.searchQuery = value
+            this.filter()
+        } else {
+         
+            this.resetFilter()
+        }
+    }
+
+   /**
+     * Verarbeitet den Klick auf den "Alle löschen"-Button.
+     */
+    onDeleteAllButtonClick = () => {
+        // Bestätigungsdialog anzeigen
+        const isConfirmed = confirm('Bist du sicher, dass du alles löschen willst?')
+
+        // Wenn bestätigt, alle Aufgaben löschen
+        if (isConfirmed) {
+            this.state.items = []
+       
+            this.saveItemsToLocalStorage()
+            this.render()
+        }
+    }
+
+
+    /**
+     * Verarbeitet Klick-Ereignisse in der Aufgabenliste.
+     * param {Event} event - Klick-Ereignis.
+     */
+    onClick = ({ target }) => {
+        // Prüfen, ob der Lösch-Button geklickt wurde
+        if (target.matches(this.selectors.itemDeleteButton)) {
+            // Nächstes Listenelement finden
+            const itemElement = target.closest(this.selectors.item)
+            // Checkbox des Elements finden
+            const itemCheckboxElement = itemElement.querySelector(this.selectors.itemCheckbox)
+
+            // Animation für das Verschwinden hinzufügen
+            itemElement.classList.add(this.stateClasses.isDisappearing)
+
+            // Aufgabe nach Ablauf der Animation löschen
+            setTimeout(() => {
+                this.deleteItem(itemCheckboxElement.id)
+            }, 400)
+        }
+    }
+
+
+
+   /**
+     * Verarbeitet Änderungen an Checkboxen in der Aufgabenliste.
+     * param {Event} event - Change-Ereignis.
+     */
+    onChange = ({ target }) => {
+        // Prüfen, ob eine Checkbox geändert wurde
+        if (target.matches(this.selectors.itemCheckbox)) {
+            // Checked-Status der Aufgabe umschalten
+            this.toggleCheckedState(target.id)
+        }
+    }
+
+
+     bindEvents() {
+        // Submit-Ereignis für das Formular zum Hinzufügen neuer Aufgaben
+        this.newTaskFormElement.addEventListener('submit', this.onNewTaskFormSubmit)
+        // Submit-Ereignis für das Suchformular
+        this.searchTaskFormElement.addEventListener('submit', this.onSearchTaskFormSubmit)
+        // Input-Ereignis für das Such-Eingabefeld
+        this.searchTaskInputElement.addEventListener('input', this.onSearchTaskInputChange)
+        // Click-Ereignis für den "Alle löschen"-Button
+        this.deleteAllButtonElement.addEventListener('click', this.onDeleteAllButtonClick)
+        // Click-Ereignis für die Aufgabenliste
+        this.listElement.addEventListener('click', this.onClick)
+        // Change-Ereignis für Checkboxen in der Aufgabenliste
+        this.listElement.addEventListener('change', this.onChange)
+    }
 }
 
 /**

@@ -91,10 +91,12 @@ button {
 
 
 .todo__delete-all_button {
-    padding: 0;
+    width: auto;
+    padding: 10px 20px;
     background-color: transparent;
     border: none;
     border-radius: none;
+    font-size: 16px;
 
     &:hover {
         transform: scale(1.1);
@@ -125,7 +127,6 @@ button {
 .todo__empty {
     text-align: center;
     color: rgb(126 146 211);
-    /* background-image: url(../../public/images/empty.svg); */
     display: flex;
     flex-direction: column;
     align-items: center;
