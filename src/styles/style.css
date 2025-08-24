@@ -151,7 +151,9 @@ button {
 .field {
     position: relative;
 
+    
     /* Skaliert das Label, wenn das Eingabefeld nicht leer ist */
+     /* Wenn .field__input nicht leer ist , wird .field__label auf 70 % skaliert, nach links und oben verschoben und die Farbe wird geändert. */
     &:has(.field__input:not(:placeholder-shown)) .field__label {
         scale: 0.7;
         translate: -1.75em -2.6em;
@@ -225,7 +227,8 @@ button {
         translate: 0 -75%;
         transition-duration: 0.4;
         pointer-events: none;
-
+       /* (~) wählt alle .todo-item-Elemente aus, die nach dem angegebenen Element in der gleichen Hierarchieebene folgen
+        translate verschiebt diese Elemente vertikal um -(100% + var(--todoListRowGap)), um einen gestapelten Effekt zu erzeugen, wobei der Abstand zwischen den Elementen berücksichtigt wird.
         /* Verschiebt nachfolgende Aufgaben bei Lösch-Animation */
         &~.todo-item {
             translate: 0 calc((100% + var(--todoListRowGap)) * -1);
