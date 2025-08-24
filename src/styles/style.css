@@ -205,6 +205,8 @@ button {
     background: rgba(41, 94, 228, 0.3);
     color: rgb(13, 36, 113);
     transition-duration: 0.2s;
+     max-width: 100%;
+    box-sizing: border-box;
 
     &:hover {
         background-color: rgba(198, 211, 255, 0.575);
@@ -296,6 +298,10 @@ button {
 .todo-item__label {
     width: 100%;
     pointer-events: none;
+    word-break: break-word; 
+    overflow-wrap: break-word; 
+    white-space: normal;
+    max-width: calc(100% - 80px);
 }
 
 
