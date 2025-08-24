@@ -1,6 +1,8 @@
+/* Import von Google Fonts und Normalize.css für einheitliches Styling */
 @import url('https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap');
 @import 'normalize.css';
 
+/* Grundlegende Stile für den Body: Zentriert den Inhalt und setzt ein festes Hintergrundbild */
 body {
     font-family: "Silkscreen", sans-serif;
     display: flex;
@@ -12,21 +14,21 @@ body {
     background-size: cover;
 }
 
+/* Übergangseffekte für Eingabefelder, Labels und Buttons */
 input,
 label,
 button {
     transition-duration: 0.2s;
 }
 
-
+/* Fokus-Styling für Barrierefreiheit */
 :focus-visible {
     outline: 2px dashed rgba(41, 94, 228, 0.3);
     outline-offset: 4px;
     transition-duration: 0s !important;
 }
 
-
-
+/* Hauptcontainer für die Todo-Liste: Flex-Layout mit abgerundeten Ecken und Hintergrundunschärfe */
 .todo {
     display: flex;
     flex-direction: column;
@@ -42,21 +44,25 @@ button {
     backdrop-filter: blur(10px);
 }
 
+/* Zentrierter Titel der Todo-Liste */
 .todo__title {
     text-align: center;
     font-size: 2rem;
     line-height: 1.2;
 }
 
+/* Formular für Eingabe und Suche: Flex-Layout mit Abstand zwischen Elementen */
 .todo__form {
     display: flex;
     column-gap: 16px;
 }
 
+/* Eingabefeldcontainer: Nimmt die volle Breite ein */
 .todo__field {
     width: 100%;
 }
 
+/* Info-Bereich mit Gesamtanzahl der Aufgaben und Lösch-Button */
 .todo__info {
     display: flex;
     justify-content: space-between;
@@ -65,7 +71,7 @@ button {
     font-weight: 600;
 }
 
-
+/* Allgemeine Button-Stile: Runde Form, Hover- und Aktiv-Effekte */
 button {
     display: inline-flex;
     align-items: center;
@@ -82,7 +88,6 @@ button {
     &:hover {
         transform: scale(1.1);
         background-color: rgb(197 210 255);
-        ;
     }
 
     &:active {
@@ -91,7 +96,7 @@ button {
     }
 }
 
-
+/* Spezifische Stile für den "Alle löschen"-Button */
 .todo__delete-all_button {
     width: auto;
     padding: 10px 20px;
@@ -112,6 +117,7 @@ button {
     }
 }
 
+/* Versteckt leere Listen und leere Zustandsmeldungen */
 .todo__list,
 .todo__empty {
     &:empty {
@@ -119,13 +125,14 @@ button {
     }
 }
 
+/* Aufgabenliste: Grid-Layout mit definiertem Abstand zwischen Elementen */
 .todo__list {
     --todoListRowGap: 8px;
-
     display: grid;
     row-gap: 8px;
 }
 
+/* Styling für den leeren Zustand der Liste */
 .todo__empty {
     text-align: center;
     color: rgb(126 146 211);
@@ -140,11 +147,11 @@ button {
     height: auto;
 }
 
-
+/* Container für Eingabefelder mit dynamischem Label-Verhalten */
 .field {
     position: relative;
 
-    /* Wenn .field__input nicht leer ist , wird .field__label auf 70 % skaliert, nach links und oben verschoben und die Farbe wird geändert. */
+    /* Skaliert das Label, wenn das Eingabefeld nicht leer ist */
     &:has(.field__input:not(:placeholder-shown)) .field__label {
         scale: 0.7;
         translate: -1.75em -2.6em;
@@ -152,7 +159,7 @@ button {
     }
 }
 
-
+/* Positionierung und Styling des Labels */
 .field__label {
     position: absolute;
     top: 50%;
@@ -161,6 +168,7 @@ button {
     translate: 0 -50%;
 }
 
+/* Styling für Eingabefelder, einschließlich Suchfeld mit Icon */
 .field__input {
     --fieldSearchInputIconSize: 16px;
     --fieldInputPaddingX: 16px;
@@ -194,7 +202,7 @@ button {
     }
 }
 
-
+/* Styling für einzelne Aufgaben: Flex-Layout mit Umbruch für langen Text */
 .todo-item {
     display: flex;
     align-items: center;
@@ -205,8 +213,8 @@ button {
     background: rgba(41, 94, 228, 0.3);
     color: rgb(13, 36, 113);
     transition-duration: 0.2s;
-     max-width: 100%;
-    box-sizing: border-box;
+    max-width: 100%; /* Verhindert Überlaufen des Containers */
+    box-sizing: border-box; /* Berücksichtigt Padding und Border in der Breite */
 
     &:hover {
         background-color: rgba(198, 211, 255, 0.575);
@@ -218,9 +226,7 @@ button {
         transition-duration: 0.4;
         pointer-events: none;
 
-        /* (~) wählt alle .todo-item-Elemente aus, die nach dem angegebenen Element in der gleichen Hierarchieebene folgen
-        translate verschiebt diese Elemente vertikal um -(100% + var(--todoListRowGap)), um einen gestapelten Effekt zu erzeugen, wobei der Abstand zwischen den Elementen berücksichtigt wird.
-         */
+        /* Verschiebt nachfolgende Aufgaben bei Lösch-Animation */
         &~.todo-item {
             translate: 0 calc((100% + var(--todoListRowGap)) * -1);
             transition-delay: 0.2s;
@@ -230,6 +236,7 @@ button {
     }
 }
 
+/* Styling für den Löschen-Button in Aufgaben */
 .todo-item__delete-button {
     flex-shrink: 0;
     display: inline-flex;
@@ -256,6 +263,7 @@ button {
     }
 }
 
+/* Checkbox für Aufgaben: Benutzerdefiniertes Styling */
 .todo-item__checkbox {
     flex-shrink: 0;
     appearance: none;
@@ -278,7 +286,6 @@ button {
 
         &+.todo-item__label {
             color: rgba(13, 36, 113, 0.554);
-            ;
             text-decoration: line-through;
         }
     }
@@ -295,36 +302,41 @@ button {
     }
 }
 
+/* Label für Aufgaben: Unterstützt Textumbruch bei langen Texten */
 .todo-item__label {
     width: 100%;
     pointer-events: none;
-    word-break: break-word; 
-    overflow-wrap: break-word; 
-    white-space: normal;
-    max-width: calc(100% - 80px);
+    word-break: break-word; /* Bricht lange Wörter um */
+    overflow-wrap: break-word; /* Unterstützt modernen Textumbruch */
+    white-space: normal; /* Erlaubt Zeilenumbrüche */
+    max-width: calc(100% - 80px); /* Begrenzt die Breite, um Platz für Checkbox und Button zu lassen */
 }
 
-
-
+/* Responsive Anpassungen für Bildschirme bis 480px */
 
 @media (max-width: 480px) {
+    /* Reduziert die Padding-Werte für kleinere Bildschirme */
     body {
         padding: 30px 15px;
     }
 
+    /* Kompakteres Layout für den Todo-Container */
     .todo {
         padding: 12px;
         row-gap: 12px;
     }
 
+    /* Kleinere Schriftgröße für den Titel */
     .todo__title {
         font-size: 1.2rem;
     }
 
+    /* Kleinere Schrift für Labels */
     .field__label {
         font-size: 0.8rem;
     }
 
+    /* Kleinere Eingabefelder und Placeholder */
     .field__input {
         font-size: 0.75rem;
         height: 32px;
@@ -335,40 +347,45 @@ button {
         font-size: 0.75rem;
     }
 
+    /* Kleinere Buttons */
     button {
         width: 32px;
         height: 32px;
         padding: 6px;
     }
 
+    /* Anpassung des "Alle löschen"-Buttons */
     .todo__delete-all_button {
         font-size: 0.8rem;
         padding: 6px 12px;
     }
 
+    /* Kleinere Schrift für den Info-Bereich */
     .todo__info {
         font-size: 0.75rem;
     }
 
+    /* Kleinere Schrift und Elemente für Aufgaben */
     .todo-item__label {
         font-size: 0.75rem;
+    }
 
-        .todo-item__checkbox {
-            width: 14px;
-            height: 14px;
-        }
+    .todo-item__checkbox {
+        width: 14px;
+        height: 14px;
+    }
 
-        .todo-item__delete-button {
-            width: 32px;
-            height: 32px;
-        }
+    .todo-item__delete-button {
+        width: 32px;
+        height: 32px;
+    }
 
-        .todo__empty {
-            font-size: 0.75rem;
-        }
+    /* Kleinere Schrift und Bild für leeren Zustand */
+    .todo__empty {
+        font-size: 0.75rem;
+    }
 
-        .todo__empty img {
-            width: 150px;
-        }
+    .todo__empty img {
+        width: 150px;
     }
 }
