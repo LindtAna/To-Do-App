@@ -4,7 +4,6 @@ Einfache, minimalistische "To Do List"-Anwendung, entwickelt ohne Frameworks ode
 
 
 # To Do List Landing Page
-
 **Live-Demo:** [lindtana.github.io/To-Do-App/](https://lindtana.github.io/To-Do-App/)
 
 
