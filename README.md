@@ -1,10 +1,14 @@
-# 📝 To Do List App
+# To Do List App
 
 Einfache, minimalistische "To Do List"-Anwendung, entwickelt ohne Frameworks oder Bibliotheken – nur HTML, CSS und Vanilla JS.
 
----
 
-## 🎨 Design
+# To Do List Landing Page
+
+**Live-Demo:** [lindtana.github.io/To-Do-App/](https://lindtana.github.io/To-Do-App/)
+
+
+# Design
 
 ![Screenshot 1](https://github.com/LindtAna/To-Do-App/blob/main/todo1.png)
 
